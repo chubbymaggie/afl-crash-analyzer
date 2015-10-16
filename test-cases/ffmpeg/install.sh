@@ -1,7 +1,7 @@
-COMPILER_C=gcc
-COMPILER_CPP=g++
-#COMPILER_C=clang
-#COMPILER_CPP=clang++
+#COMPILER_C=gcc
+#COMPILER_CPP=g++
+COMPILER_C=clang
+COMPILER_CPP=clang++
 
 #Note: There are more disc space efficient ways, make sure you have enough disc space
 
@@ -27,12 +27,12 @@ cd ..
 
 echo "[+] Compiling ffmpeg-plain"
 cd ffmpeg-plain
-export CFLAGS="-Wall -g" && export CC=$COMPILER_C && export CXX=$COMPILER_CPP && ./configure --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-stripping --disable-shared --cc=$COMPILER_C --cxx=$COMPILER_CPP && make clean && make 
+export CFLAGS="-Wall -g" && export CC=$COMPILER_C && export CXX=$COMPILER_CPP && ./configure --disable-pthreads --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-stripping --disable-shared --cc=$COMPILER_C --cxx=$COMPILER_CPP && make clean && make 
 cd ..
 
 echo "[+] Compiling ffmpeg-afl"
 cd ffmpeg-afl
-export CFLAGS="-Wall -g" && export CC=afl-$COMPILER_C && export CXX=afl-$COMPILER_CPP && ./configure --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-stripping --disable-shared --cc=afl-$COMPILER_C --cxx=afl-$COMPILER_CPP && make clean && make 
+export CFLAGS="-Wall -g" && export CC=afl-$COMPILER_C && export CXX=afl-$COMPILER_CPP && ./configure --disable-pthreads --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-shared --cc=afl-$COMPILER_C --cxx=afl-$COMPILER_CPP && make clean && make 
 cd ..
 
 echo "[+] Compiling ffmpeg-asan"
@@ -42,6 +42,6 @@ cd ffmpeg-asan
 #Additionally (separate issue): had issues with ASAN on ARM:
 #/usr/bin/ld.bfd.real: cannot find /usr/bin/../lib/clang/3.4/lib/linux/libclang_rt.asan-arm.a: No such file or directory
 #too lazy to debug, didn't build with ASAN on ARM
-export CFLAGS="-Wall -g -fsanitize=address -fno-omit-frame-pointer" && export CC=$COMPILER_C && export CXX=$COMPILER_CPP && ./configure --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-stripping --disable-shared --cc=$COMPILER_C --cxx=$COMPILER_CPP && make clean && make 
+export CFLAGS="-Wall -g -fsanitize=address -fno-omit-frame-pointer" && export CC=$COMPILER_C && export CXX=$COMPILER_CPP && ./configure --disable-pthreads --disable-ffplay --disable-ffprobe --disable-ffserver --disable-doc --disable-stripping --disable-shared --cc=$COMPILER_C --cxx=$COMPILER_CPP && make clean && make 
 cd ..
 
